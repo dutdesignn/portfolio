@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DUT. — Antonin Dutartre</title>
+  <meta name="description" content="Portfolio d'Antonin Dutartre : design graphique, motion design et création 3D.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&family=Jersey+25&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ ACCUEIL ============ -->
+  <header class="accueil fond" id="accueil">
+    <a class="accueil__logo" href="#accueil" aria-label="DUT. — retour en haut">
+      <img src="assets/svg/logo.svg" width="128" height="62" alt="DUT.">
+    </a>
+
+    <div class="accueil__contenu">
+      <!-- Grand cadre : diaporama des projets mis en avant (rempli par js/main.js depuis js/projets.js) -->
+      <div class="vitrine" aria-roledescription="carrousel" aria-label="Projets à la une">
+        <div class="vitrine__pistes" id="vitrine"></div>
+      </div>
+
+      <nav class="accueil__nav" aria-label="Catégories">
+        <a class="bouton" href="#design-graphique"><span class="lettrine">D</span>esign <span class="lettrine">G</span>raphique</a>
+        <button class="fleche" type="button" data-vitrine="suivant" aria-label="Projet suivant">
+          <svg class="fleche__img" viewBox="0 0 55.6688 50.7087" preserveAspectRatio="none" overflow="visible" fill="none" aria-hidden="true">
+            <path class="fleche__contour" d="M20.2756 45.4285L8.99772 36.0621L5.42452 23.1696L13.6875 10.6076L31.5536 5.42854L48.3029 16.0071L50.4245 32.2054L42.0498 42.1228L20.2756 45.4285Z" stroke-width="10"/>
+            <path class="fleche__trait" d="M28.1745 16.6785L37.1745 25.6785L28.1745 34.6785M37.1745 25.6785H19.1745" stroke-width="4" stroke-linejoin="bevel"/>
+          </svg>
+        </button>
+        <a class="bouton" href="#motion-design"><span class="lettrine">M</span>otion <span class="lettrine">D</span>esign</a>
+        <button class="fleche fleche--gauche" type="button" data-vitrine="precedent" aria-label="Projet précédent">
+          <svg class="fleche__img" viewBox="0 0 55.6688 50.7087" preserveAspectRatio="none" overflow="visible" fill="none" aria-hidden="true">
+            <path class="fleche__contour" d="M20.2756 45.4285L8.99772 36.0621L5.42452 23.1696L13.6875 10.6076L31.5536 5.42854L48.3029 16.0071L50.4245 32.2054L42.0498 42.1228L20.2756 45.4285Z" stroke-width="10"/>
+            <path class="fleche__trait" d="M28.1745 16.6785L19.1745 25.6785L28.1745 34.6785M19.1745 25.6785H37.1745" stroke-width="4" stroke-linejoin="bevel"/>
+          </svg>
+        </button>
+        <a class="bouton" href="#creation-3d"><span class="lettrine">C</span>réation 3D</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ À PROPOS ============ -->
+    <section class="apropos" id="a-propos" aria-labelledby="apropos-titre">
+      <div class="apropos__photo">
+        <div class="emplacement" data-fichier="images/portrait.jpg">
+          <img src="images/portrait.jpg" alt="Portrait d'Antonin Dutartre">
+        </div>
+        <span class="apropos__logo" aria-hidden="true">
+          <img src="assets/svg/logo-apropos.svg" width="265" height="129" alt="">
+        </span>
+      </div>
+
+      <div class="apropos__texte">
+        <div>
+          <h2 class="apropos__nom" id="apropos-titre">DUT.</h2>
+          <p class="apropos__sous-titre">Antonin dutartre</p>
+        </div>
+        <div class="apropos__bio">
+          <p>Hey, moi c’est Dut ou Antonin</p>
+          <p>Je suis un jeune créatif qui aime donner vie à une idée, une marque ou un concept. Ça passe par la création de visuels print ou web, mais pourquoi s’arrêter là quand on peut aussi animer et modéliser en 3D ses envies ? Vous l’aurez deviné, ce que j’aime, c’est voir un projet prendre réellement vie. Alors n’hésitez pas à me contacter pour qu’on parle du vôtre !</p>
+        </div>
+
+        <!-- Contacts : pour changer un lien, modifie son href -->
+        <ul class="apropos__contacts" aria-label="Me contacter">
+          <li>
+            <a href="https://www.instagram.com/dut_designn/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" class="plein"/></svg>
+              <span>dut_designn</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dut-designn/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.2v.1M12 17v-6.5M12 13.5c0-1.8 1.2-3 2.7-3s2.3 1 2.3 2.8V17"/></svg>
+              <span>Antonin Dutartre</span>
+            </a>
+          </li>
+          <li>
+            <span class="apropos__info">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+              <span>dut.designn@gmail.com</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ GALERIES (cartes générées depuis js/projets.js) ============ -->
+    <section class="galerie fond" id="design-graphique" aria-labelledby="titre-dg">
+      <h2 class="galerie__titre" id="titre-dg"><span class="lettrine">D</span>esign graphique</h2>
+      <div class="galerie__grille" data-categorie="design-graphique"></div>
+    </section>
+
+    <section class="galerie fond" id="motion-design" aria-labelledby="titre-md">
+      <h2 class="galerie__titre" id="titre-md"><span class="lettrine">M</span>otion <span class="lettrine">D</span>esign</h2>
+      <div class="galerie__grille" data-categorie="motion-design"></div>
+    </section>
+
+    <section class="galerie fond" id="creation-3d" aria-labelledby="titre-3d">
+      <h2 class="galerie__titre" id="titre-3d"><span class="lettrine">C</span>réation 3D</h2>
+      <div class="galerie__grille" data-categorie="creation-3d"></div>
+    </section>
+  </main>
+
+  <!-- ============ FICHE PROJET (fenêtre) ============ -->
+  <dialog class="fiche" id="fiche" aria-labelledby="fiche-titre">
+    <div class="fiche__fond" id="fiche-fond" aria-hidden="true"></div>
+    <button class="fiche__fermer" type="button" data-fermer aria-label="Fermer">×</button>
+
+    <div class="fiche__media">
+      <div class="fiche__galerie">
+        <div class="fiche__diapos" id="fiche-diapos"></div>
+      </div>
+
+      <!-- Flèches sous la zone photo / vidéo -->
+      <div class="fiche__nav" id="fiche-nav">
+        <button class="fleche fleche--projet fleche--gauche" type="button" id="fiche-precedent" aria-label="Image précédente">
+          <svg class="fleche__img" viewBox="0 0 55.6688 50.7087" preserveAspectRatio="none" overflow="visible" fill="none" aria-hidden="true">
+            <path class="fleche__contour" d="M20.2756 45.4285L8.99772 36.0621L5.42452 23.1696L13.6875 10.6076L31.5536 5.42854L48.3029 16.0071L50.4245 32.2054L42.0498 42.1228L20.2756 45.4285Z" stroke-width="10"/>
+            <path class="fleche__trait" d="M28.1745 16.6785L19.1745 25.6785L28.1745 34.6785M19.1745 25.6785H37.1745" stroke-width="4" stroke-linejoin="bevel"/>
+          </svg>
+        </button>
+        <button class="fleche fleche--projet" type="button" id="fiche-suivant" aria-label="Image suivante">
+          <svg class="fleche__img" viewBox="0 0 55.6688 50.7087" preserveAspectRatio="none" overflow="visible" fill="none" aria-hidden="true">
+            <path class="fleche__contour" d="M20.2756 45.4285L8.99772 36.0621L5.42452 23.1696L13.6875 10.6076L31.5536 5.42854L48.3029 16.0071L50.4245 32.2054L42.0498 42.1228L20.2756 45.4285Z" stroke-width="10"/>
+            <path class="fleche__trait" d="M28.1745 16.6785L37.1745 25.6785L28.1745 34.6785M37.1745 25.6785H19.1745" stroke-width="4" stroke-linejoin="bevel"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="fiche__texte">
+      <h2 class="fiche__titre" id="fiche-titre">
+        <span class="fiche__surtitre">Projet :</span>
+        <span id="fiche-nom"></span>
+      </h2>
+      <div class="fiche__description" id="fiche-description"></div>
+    </div>
+  </dialog>
+
+  <!-- Gabarit d'une carte projet -->
+  <template id="gabarit-carte">
+    <button class="carte" type="button">
+      <span class="carte__media emplacement"><img alt=""></span>
+      <img class="carte__contour" src="assets/svg/carte-contour.svg" width="374" height="475" alt="">
+      <img class="carte__contour carte__contour--survol" src="assets/svg/carte-contour-survol.svg" width="374" height="475" alt="">
+      <img class="carte__cadre" src="assets/svg/carte-cadre.svg" width="325" height="383" alt="">
+      <img class="carte__cadre carte__cadre--survol" src="assets/svg/carte-cadre-survol.svg" width="325" height="316" alt="">
+      <span class="carte__annee"></span>
+      <span class="carte__titre"></span>
+      <span class="carte__desc"></span>
+    </button>
+  </template>
+
+  <script src="js/projets.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+/* =========================================================
+   DUT. — Portfolio Antonin Dutartre
+   Basé sur la maquette Figma (cadre 1920 × 1080)
+   ========================================================= */
+
+/* Police 0Arame (années sur les cartes, sous-titre) : elle n'est pas sur Google Fonts.
+   Dépose le fichier dans fonts/0arame.woff2 pour l'activer. En attendant, Jersey 25 la remplace. */
+@font-face {
+  font-family: "0Arame";
+  src: url("../fonts/0arame.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --noir: #161616;
+  --gris-logo: #ebeaf1;
+  --blanc: #ffffff;
+  --rose: #e94789;
+  --vide: #26262b;
+
+  --police: "Jersey 25", system-ui, sans-serif;
+  --police-lettrine: "Jacquarda Bastarda 9", "Jersey 25", serif;
+  --police-arame: "0Arame", "Jersey 25", monospace;
+
+  --marge: clamp(16px, 3.33vw, 64px);
+  --rayon: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* Curseur du site (assets/curseur.png, 50 px de haut ≈ 2,5 × un curseur normal ;
+   curseur@2x.png pour les écrans Retina). "1 1" = la pointe en haut à gauche.
+   Trois écritures : chaque navigateur garde la plus complète qu'il comprend. */
+html {
+  cursor: url("../assets/curseur.png") 1 1, auto;
+  cursor: -webkit-image-set(url("../assets/curseur.png") 1x, url("../assets/curseur@2x.png") 2x) 1 1, auto;
+  cursor: image-set(url("../assets/curseur.png") 1x, url("../assets/curseur@2x.png") 2x) 1 1, auto;
+}
+/* Partout le même curseur, y compris sur les liens, boutons et la fenêtre projet */
+*, *::before, *::after { cursor: inherit; }
+::backdrop {
+  cursor: url("../assets/curseur.png") 1 1, auto;
+  cursor: -webkit-image-set(url("../assets/curseur.png") 1x, url("../assets/curseur@2x.png") 2x) 1 1, auto;
+  cursor: image-set(url("../assets/curseur.png") 1x, url("../assets/curseur@2x.png") 2x) 1 1, auto;
+}
+
+body {
+  margin: 0;
+  background: var(--noir);
+  color: var(--blanc);
+  font-family: var(--police);
+  -webkit-font-smoothing: antialiased;
+}
+/* Le logo vertical de « À propos » peut déborder sur très petit écran */
+main { overflow-x: clip; }
+
+body.fiche-ouverte { overflow: hidden; }
+
+img { display: block; max-width: 100%; }
+h1, h2, p { margin: 0; font-weight: 400; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+
+.lettrine { font-family: var(--police-lettrine); }
+
+/* Fond texturé commun aux sections (images/fond.jpg ou images/fond.png : seul le fichier présent s'affiche).
+   "fixed" : la texture reste en place pendant le défilement, donc elle se prolonge
+   d'une section à l'autre sans raccord visible (sur iPhone, elle défile simplement avec la page). */
+.fond {
+  background:
+    url("../images/fond.png") center / cover fixed,
+    url("../images/fond.jpg") center / cover fixed,
+    var(--noir);
+}
+
+/* ---------- Emplacement d'image vide ---------- */
+.emplacement {
+  position: relative;
+  overflow: hidden;
+  background: var(--vide);
+}
+.emplacement img,
+.emplacement video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.emplacement.vide img { display: none; }
+.emplacement.vide::after {
+  content: attr(data-fichier);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  text-align: center;
+  font: 12px/1.3 ui-monospace, Menlo, monospace;
+  color: rgba(235, 234, 241, 0.5);
+  background: repeating-linear-gradient(45deg, transparent 0 12px, rgba(255, 255, 255, 0.025) 12px 24px);
+}
+
+/* =========================================================
+   ACCUEIL
+   ========================================================= */
+.accueil {
+  min-height: 100vh;
+  padding: 16px var(--marge) 64px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 4.2vw, 80px);
+}
+
+.accueil__logo { align-self: center; }
+.accueil__logo img { width: 128px; height: 62px; }
+
+.accueil__contenu {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.vitrine {
+  flex: 1 1 auto;
+  aspect-ratio: 1489 / 838;
+  border: 2px solid var(--gris-logo);
+  border-radius: var(--rayon);
+  overflow: hidden;
+}
+.vitrine__pistes {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.vitrine__diapo {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.accueil__nav {
+  flex: 0 0 267px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Bouton de catégorie */
+.bouton {
+  display: block;
+  text-align: center;
+  width: 267px;
+  padding: 8px;
+  background: var(--noir);
+  border: 2px solid var(--gris-logo);
+  border-radius: 8px;
+  color: var(--gris-logo);
+  font-size: 32px;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+.bouton .lettrine { text-transform: none; }
+.bouton:hover, .bouton:focus-visible { border-color: var(--rose); color: var(--rose); }
+
+/* Flèches octogonales du site (blanches, roses au survol), toutes avec le même dessin.
+   La flèche gauche a son propre fichier : le contour garde la même forme, seule la pointe change de sens. */
+.fleche {
+  position: relative;
+  width: 151px;
+  aspect-ratio: 45 / 40; /* proportions du dessin, à toutes les tailles */
+  flex-shrink: 0;
+}
+.fleche__img {
+  position: absolute;
+  /* Débord du dessin autour du bouton, proportionnel à sa taille */
+  top: -13.57%;
+  left: -12.05%;
+  width: 123.7%;
+  height: 126.77%;
+  max-width: none;
+  overflow: visible;
+}
+/* Dessin de la flèche (octogone + flèche), directement dans la page : couleur via "color" */
+.fleche {
+  --sens: 1; /* 1 = vers la droite, -1 = vers la gauche */
+  color: #ebeaf1;
+  transition: color 0.2s;
+}
+.fleche--gauche { --sens: -1; }
+.fleche__contour,
+.fleche__trait { stroke: currentColor; }
+.fleche:hover,
+.fleche:focus-visible { color: var(--rose); }
+
+/* Au survol, la flèche avance doucement dans sa direction, puis revient, en boucle */
+.fleche:hover .fleche__trait,
+.fleche:focus-visible .fleche__trait {
+  animation: fleche-pousse 0.9s ease-in-out infinite;
+}
+@keyframes fleche-pousse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(calc(var(--sens) * 3px)); } /* en unités du dessin : ~6 % de sa largeur */
+}
+@media (prefers-reduced-motion: reduce) {
+  .fleche:hover .fleche__trait,
+  .fleche:focus-visible .fleche__trait { animation: none; }
+}
+
+/* =========================================================
+   À PROPOS
+   ========================================================= */
+.apropos {
+  min-height: 540px;
+  padding: 24px var(--marge);
+  display: flex;
+  align-items: center;
+  gap: clamp(64px, 6.25vw, 120px);
+  position: relative;
+  isolation: isolate; /* le grain ci-dessous reste derrière le contenu */
+  /* Dégradé rose de la maquette posé sur la même texture que le reste du site :
+     il est transparent en haut et en bas, donc il se fond dans les sections voisines. */
+  background:
+    linear-gradient(180deg, rgba(114, 14, 80, 0) 0%, rgba(233, 71, 137, 0.45) 29.327%, rgba(170, 13, 77, 0.45) 65.865%, rgba(129, 54, 54, 0) 100%),
+    url("../images/fond-apropos.png") center / cover,
+    url("../images/fond-apropos.jpg") center / cover,
+    url("../images/fond.png") center / cover fixed,
+    url("../images/fond.jpg") center / cover fixed,
+    var(--noir);
+}
+/* Grain sur le dégradé : bruit généré par le navigateur (aucune image à charger),
+   plus fort au centre et qui disparaît en haut et en bas, comme le rose */
+.apropos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 66%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 66%, transparent 100%);
+}
+
+.apropos__photo {
+  position: relative;
+  flex: 0 0 357px;
+}
+.apropos__photo .emplacement {
+  height: 468px;
+  border: 2px solid var(--gris-logo);
+  border-radius: var(--rayon);
+}
+
+/* Logo vertical qui chevauche le bord droit de la photo */
+.apropos__logo {
+  position: absolute;
+  left: 277px;
+  top: 91px;
+  width: 129px;
+  height: 265px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.apropos__logo img {
+  flex: none;
+  max-width: none;
+  transform: rotate(-90deg);
+}
+
+.apropos__texte {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.apropos__nom {
+  font-size: 100px;
+  line-height: 0.8;
+}
+.apropos__sous-titre {
+  margin-top: 6px;
+  font-family: var(--police-arame);
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.apropos__bio {
+  max-width: 612px;
+  font-size: 24px;
+  line-height: 25px;
+}
+.apropos__bio p + p { margin-top: 25px; }
+
+/* Liens de contact sous la présentation */
+.apropos__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.apropos__contacts a,
+.apropos__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.2s;
+}
+.apropos__contacts svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.apropos__contacts svg .plein { fill: currentColor; }
+.apropos__contacts span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+.apropos__contacts a:hover,
+.apropos__contacts a:focus-visible { color: var(--rose); }
+.apropos__contacts a:hover span,
+.apropos__contacts a:focus-visible span { text-decoration-color: currentColor; }
+
+/* =========================================================
+   GALERIES DE PROJETS
+   ========================================================= */
+.galerie {
+  padding: var(--marge);
+  padding-bottom: clamp(64px, 8vw, 160px);
+}
+
+.galerie__titre {
+  margin-bottom: 16px;
+  font-size: clamp(48px, 6.67vw, 128px);
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.galerie__titre .lettrine { text-transform: none; }
+
+.galerie__grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 357px);
+  gap: 64px 24px;
+  justify-content: space-between; /* ~120px entre les cartes sur un écran 1920 */
+}
+
+/* ---------- Carte projet ----------
+   Au survol : le cadre intérieur raccourcit, le titre remonte et le résumé apparaît. */
+.carte {
+  position: relative;
+  display: block;
+  width: 357px;
+  height: 464px;
+  border: 2px solid var(--blanc);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  text-align: left;
+  color: var(--blanc);
+}
+
+.carte__media {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+}
+
+.carte__contour {
+  position: absolute;
+  left: -12.25px;
+  top: -10px;
+  width: 374px;
+  height: 475px;
+  max-width: none;
+  pointer-events: none;
+}
+.carte__cadre {
+  position: absolute;
+  left: 13px;
+  top: 13px;
+  max-width: none;
+  pointer-events: none;
+}
+
+.carte__contour, .carte__cadre { transition: opacity 0.3s; }
+.carte__contour--survol, .carte__cadre--survol { opacity: 0; }
+
+.carte__annee {
+  position: absolute;
+  left: 267px;
+  top: 3px;
+  font-family: var(--police-arame);
+  font-size: 24px;
+  letter-spacing: 0.96px;
+}
+
+.carte__titre {
+  position: absolute;
+  left: 16px;
+  top: 406px;
+  width: 326px;
+  font-size: 36px;
+  line-height: normal;
+  white-space: nowrap;
+  transition: top 0.35s ease;
+}
+.carte--titre-long .carte__titre {
+  font-size: 32px;
+  letter-spacing: -0.96px;
+}
+
+.carte__desc {
+  position: absolute;
+  left: 20px;
+  top: 466px;
+  width: 310px;
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: -0.16px;
+  transition: top 0.35s ease;
+}
+
+.carte:hover .carte__contour:not(.carte__contour--survol),
+.carte:hover .carte__cadre:not(.carte__cadre--survol),
+.carte:focus-visible .carte__contour:not(.carte__contour--survol),
+.carte:focus-visible .carte__cadre:not(.carte__cadre--survol) { opacity: 0; }
+.carte:hover .carte__contour--survol,
+.carte:hover .carte__cadre--survol,
+.carte:focus-visible .carte__contour--survol,
+.carte:focus-visible .carte__cadre--survol { opacity: 1; }
+.carte:hover .carte__titre,
+.carte:focus-visible .carte__titre { top: 340px; }
+.carte:hover .carte__desc,
+.carte:focus-visible .carte__desc { top: 384px; }
+
+/* =========================================================
+   FICHE PROJET (fenêtre 1700 × 956)
+   ========================================================= */
+.fiche {
+  width: min(1700px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  aspect-ratio: 1700 / 956;
+  padding: 49px 51px 49px 44px;
+  border: 0;
+  border-radius: var(--rayon);
+  background: var(--noir);
+  color: var(--blanc);
+  overflow: hidden;
+}
+.fiche[open] {
+  display: grid;
+  grid-template-columns: minmax(0, 1200fr) minmax(0, 368fr);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: start;
+  gap: 37px;
+}
+.fiche::backdrop { background: rgba(0, 0, 0, 0.7); }
+
+/* Image de fond floutée + voile sombre de la maquette */
+.fiche__fond {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--noir);
+  background-position: center;
+  background-size: cover;
+}
+.fiche__fond::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 22, 22, 0.8);
+}
+
+.fiche__fermer {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  z-index: 2;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--gris-logo);
+}
+.fiche__fermer:hover { color: var(--rose); }
+
+/* Colonne gauche : galerie + flèches en dessous */
+.fiche__media {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  height: 100%;
+  min-height: 0;
+}
+/* Zone d'images : sa largeur et sa hauteur sont calculées par js/main.js
+   pour épouser exactement les visuels de la page affichée (24 px de marge partout) */
+.fiche__galerie {
+  position: relative;
+  flex: none;
+  max-width: 100%;
+  background: var(--gris-logo);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1), height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.fiche__diapos {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.fiche__diapo {
+  flex: 0 0 100%;
+  min-width: 0; /* une page plus large ne pousse pas les suivantes */
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fiche__diapo > .emplacement {
+  width: 100%;
+  height: 100%;
+  background-color: #d9d8df;
+}
+.fiche__diapo > .emplacement.vide::after { color: rgba(22, 22, 22, 0.5); }
+
+/* Une page = tous les visuels d'un dossier (images/projets/<projet>/1/…), placés au pixel près */
+.fiche__page {
+  position: relative;
+  flex: none;
+}
+.fiche__visuel {
+  position: absolute;
+  overflow: hidden;
+}
+.fiche__visuel img,
+.fiche__visuel video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fiche__nav {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+.fiche__nav[hidden] { display: none; }
+
+/* Flèches de la fiche : même dessin, en plus petit.
+   Une flèche est masquée quand il n'y a plus d'image de son côté (elle garde sa place pour que l'autre ne bouge pas). */
+.fleche--projet { width: 45px; }
+.fleche--projet.fleche--masquee { visibility: hidden; }
+
+.fiche__texte {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.fiche__titre {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 48px;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+.fiche__surtitre { font-size: 36px; }
+.fiche__description {
+  font-size: 20px;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
+.fiche__description p + p { margin-top: 1em; }
+
+/* =========================================================
+   ADAPTATION AUX ÉCRANS PLUS PETITS
+   ========================================================= */
+@media (max-width: 1100px) {
+  .accueil { min-height: auto; }
+  .accueil__contenu { flex-direction: column; }
+  .accueil__nav {
+    flex-basis: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  /* Les flèches passent juste sous la vidéo, sur leur propre ligne, puis les boutons en dessous */
+  .accueil__nav { gap: 16px 24px; }
+  .accueil__nav .fleche { width: clamp(44px, 9vw, 60px); order: -2; } /* 44 px sur téléphone, 60 px sur tablette */
+  .accueil__nav .fleche--gauche { order: -3; }
+  .accueil__nav::before { content: ""; flex-basis: 100%; order: -1; }
+
+  .apropos { flex-direction: column; align-items: flex-start; padding-block: 48px; }
+
+  .fiche[open] {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    aspect-ratio: auto;
+    height: calc(100vh - 32px);
+    overflow-y: auto;
+    padding: 56px 16px 24px;
+  }
+  .fiche__media { height: auto; min-height: auto; }
+  .fiche__galerie { flex-shrink: 0; }
+  .fiche__texte { max-height: none; overflow: visible; }
+}
+
+@media (max-width: 600px) {
+  .bouton { width: 100%; font-size: 28px; }
+  .apropos__photo { flex-basis: auto; width: 100%; max-width: 300px; }
+  .apropos__photo .emplacement { height: 393px; }
+  .apropos__logo { left: auto; right: -40px; top: 60px; transform: scale(0.8); }
+  .apropos__nom { font-size: 72px; }
+  .apropos__bio { font-size: 20px; line-height: 22px; }
+  .apropos__bio p + p { margin-top: 22px; }
+  .apropos__contacts { flex-direction: column; font-size: 18px; }
+
+  /* Les cartes gardent leurs proportions et sont réduites pour tenir à l'écran */
+  .galerie__grille { justify-content: center; zoom: 0.9; }
+  .galerie__titre { font-size: 44px; white-space: normal; }
+
+  .fiche__titre { font-size: 36px; padding: 0; }
+  .fiche__surtitre { font-size: 26px; }
+  .fiche__description { font-size: 18px; }
+}
+
+@media (max-width: 360px) {
+  .galerie__grille { zoom: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
