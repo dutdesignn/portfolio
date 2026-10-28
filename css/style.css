@@ -113,7 +113,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: clamp(32px, 4.2vw, 80px);
 }
 
-.accueil__logo { align-self: center; }
+.accueil__titre { align-self: center; margin: 0; line-height: 0; }
+.accueil__logo { display: inline-block; }
 .accueil__logo img { width: 128px; height: 62px; }
 
 .accueil__contenu {

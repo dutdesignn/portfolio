@@ -50,6 +50,12 @@ document.addEventListener('visibilitychange', () => {
   document.querySelectorAll('video').forEach(actualiserVideo);
 });
 
+// Image d'aperçu d'une vidéo (ex. 1.mp4 -> 1.apercu.jpg), créée par outils/Optimiser les images.command.
+// Elle s'affiche pendant que la vidéo charge.
+function apercuDe(src) {
+  return `${sansExtension(src)}.apercu.jpg`;
+}
+
 // Vidéo en boucle, sans son au départ (obligatoire pour la lecture automatique)
 function creerVideo(controles) {
   const video = document.createElement('video');
@@ -74,6 +80,7 @@ function essayerVideos(conteneur, img, essais, controles) {
     return;
   }
   const video = creerVideo(controles);
+  video.poster = apercuDe(src);
   video.addEventListener('loadedmetadata', () => {
     img.replaceWith(video);
     conteneur.classList.remove('vide');
@@ -121,6 +128,7 @@ document.querySelectorAll('.emplacement').forEach((conteneur) => surveillerImage
 
 /* ---------- Cartes projet ---------- */
 const gabarit = document.getElementById('gabarit-carte');
+const CATEGORIES = { 'design-graphique': 'Design graphique', 'motion-design': 'Motion design', 'creation-3d': 'Création 3D' };
 
 document.querySelectorAll('.galerie__grille').forEach((grille) => {
   (CARTES[grille.dataset.categorie] || []).forEach((carte) => {
@@ -129,6 +137,8 @@ document.querySelectorAll('.galerie__grille').forEach((grille) => {
     const img = media.querySelector('img');
     img.src = carte.vignette;
     img.loading = 'lazy';
+    // Texte de l'image, lu par Google Images et les lecteurs d'écran
+    img.alt = `${carte.titre} — ${CATEGORIES[grille.dataset.categorie] || 'projet'} par Antonin Dutartre`;
     surveillerImage(media);
 
     el.querySelector('.carte__annee').textContent = carte.annee;
@@ -146,6 +156,35 @@ document.querySelectorAll('.galerie__grille').forEach((grille) => {
     grille.append(el);
   });
 });
+
+/* ---------- Liste des projets pour Google ----------
+   Générée à partir de js/projets.js : elle reste à jour quand tu ajoutes ou retires un projet. */
+(() => {
+  const auteur = { '@id': 'https://dut-designn.com/#antonin' };
+  const projets = [];
+  Object.entries(CARTES).forEach(([categorie, cartes]) => cartes.forEach((carte) => {
+    const fiche = carte.fiche && FICHES[carte.fiche];
+    projets.push({
+      '@type': 'CreativeWork',
+      name: carte.titre,
+      genre: CATEGORIES[categorie],
+      description: carte.resume,
+      ...(fiche ? { abstract: fiche.description[0] } : {}),
+      dateCreated: carte.annee,
+      creator: auteur,
+      inLanguage: 'fr-FR',
+    });
+  }));
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Projets d’Antonin Dutartre (DUT.)',
+    itemListElement: projets.map((item, i) => ({ '@type': 'ListItem', position: i + 1, item })),
+  });
+  document.head.append(script);
+})();
 
 /* ---------- Diaporama de l'accueil ---------- */
 const vitrine = document.getElementById('vitrine');
@@ -298,6 +337,7 @@ function creerPage(visuels, titre) {
     cadre.className = 'fiche__visuel';
     if (visuel.type === 'video') {
       const video = creerVideo(true);
+      video.poster = apercuDe(visuel.src);
       video.src = visuel.src;
       cadre.append(video);
       observateurVideos.observe(video);

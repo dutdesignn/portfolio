@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dut-designn.com/sitemap.xml
