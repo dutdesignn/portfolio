@@ -13,6 +13,8 @@
                 le site les lit dans images/projets/<projet>/1/, 2/, 3/
                 (une page par dossier, visuels nommés 1, 2, 3… dans chaque dossier).
                 Pour plus de 3 pages, ajoute par ex. « pages: 4, » au projet.
+                « titreGoogle » : le titre de la page du projet dans les résultats Google
+                (dut-designn.com/projets/<projet>/). Facultatif : sans lui, le titre du projet est utilisé.
   - CARTES    : les cartes de chaque catégorie, dans l'ordre d'affichage.
                 "fiche" = l'identifiant de la fiche à ouvrir (null = pas cliquable).
 */
@@ -26,6 +28,7 @@ const ACCUEIL = [
 const FICHES = {
   vgc: {
     titre: 'VALORANT GAME CHANGERS',
+    titreGoogle: 'Valorant Game Changers — Visuels 3D pour Karmine Corp',
     fond: 'images/vignettes/vgc.jpg',
     description: [
       'Ce projet, je l’ai réalisé pendant mon stage chez Karmine Corp, pour les matchs de l’équipe Valorant Game Changers. L’idée était de construire une scène 3D plongée dans l’univers du jeu, avec ses armes, ses douilles et une lumière rouge omniprésente. Au centre de chaque visuel, il y a une carte MATCHDAY, VICTORY ou DEFEAT, comme une pièce à conviction posée au milieu du décor.',
@@ -36,6 +39,7 @@ const FICHES = {
 
   lfl: {
     titre: 'LFL',
+    titreGoogle: 'LFL — Affiches de match pour Karmine Corp Blue',
     fond: 'images/vignettes/lfl.jpg',
     description: [
       'Pour Karmine Corp Blue, l’équipe League of Legends du club, j’ai conçu toute la série de visuels qui accompagnait la saison. Jour de match, victoire, défaite, résultat final… chaque moment avait son affiche, et il fallait qu’elles forment un tout reconnaissable.',
@@ -46,6 +50,7 @@ const FICHES = {
 
   'blue-rising': {
     titre: 'BLUE RISING',
+    titreGoogle: 'Blue Rising — Visuels du jeu de cartes Karmine Corp',
     fond: 'images/vignettes/blue-rising.jpg',
     description: [
       'Blue Rising, c’est le jeu de cartes à collectionner lancé par Karmine Corp, et j’ai travaillé sur plusieurs visuels pour accompagner son lancement. L’enjeu était de faire exister le jeu au-delà des cartes elles-mêmes, à travers des offres, des événements et des éditions spéciales.',
@@ -56,6 +61,7 @@ const FICHES = {
 
   'blue-tour': {
     titre: 'BLUE TOUR',
+    titreGoogle: 'Blue Tour — Campagne EWC 2026 pour Karmine Corp',
     fond: 'images/vignettes/blue-tour.jpg',
     description: [
       'Pour l’EWC 2026 à Paris, j’ai réalisé une série de visuels pour faire venir la communauté sur le stand Karmine House. Il fallait annoncer plusieurs temps forts, du meet and greet avec le roster Rocket League au Blue Tour, tout en gardant une campagne cohérente.',
@@ -66,6 +72,7 @@ const FICHES = {
 
   'le-petit-bain': {
     titre: 'LE PETIT BAIN',
+    titreGoogle: 'Le Petit Bain — Dépliant et programmation',
     fond: 'images/vignettes/le-petit-bain.jpg',
     description: [
       'Petit Bain, c’est un projet né pendant mes études. Le point de départ était simple. Il s’agissait de créer un dépliant pour le lieu, avec sa programmation au verso.',
@@ -76,6 +83,7 @@ const FICHES = {
 
   'retro-gaming': {
     titre: 'RÉTRO GAMING FESTIVAL',
+    titreGoogle: 'Rétro Gaming Festival — Affiche et motion design',
     fond: 'images/vignettes/retro-gaming.jpg',
     description: [
       'Retro Gaming Festival est un projet d’affiche construit autour d’un logo typographique fort.',
@@ -87,6 +95,7 @@ const FICHES = {
 
   'karmine-corp': {
     titre: 'KARMINE CORP',
+    titreGoogle: 'Karmine Corp — Motion design et habillage vidéo',
     fond: 'images/vignettes/karmine-corp.jpg',
     description: [
       'Pendant mon stage chez Karmine Corp, j’ai réalisé un ensemble de motions pour les contenus vidéo du club. Une partie concernait l’habillage, avec des éléments animés qui viennent rythmer les vidéos et renforcer l’identité de Karmine à l’écran.',
@@ -96,6 +105,7 @@ const FICHES = {
 
   arte: {
     titre: 'ARTE',
+    titreGoogle: 'Arte — Animation motion design pour Instagram',
     fond: 'images/vignettes/arte.jpg',
     description: [
       'Pour ce projet fictif, j’ai imaginé une courte animation pour Arte, pensée pour un post Instagram en format vertical. Je voulais traduire en quelques secondes ce qui fait l’identité de la chaîne, c’est-à-dire sa curiosité et la diversité de ce qu’elle propose.',
@@ -105,6 +115,7 @@ const FICHES = {
 
   carnaval: {
     titre: 'CARNAVAL CAEN',
+    titreGoogle: 'Carnaval de Caen — Boucles d’animation et 3D',
     fond: 'images/vignettes/carnaval.jpg',
     description: [
       'Pour le Carnaval de Caen, le projet consistait à créer des boucles d’animation autour du thème des années 2000. Chacun apportait sa propre vision de l’époque, ce qui a donné un ensemble d’animations très variées.',
@@ -114,6 +125,7 @@ const FICHES = {
 
   'nuits-sonores': {
     titre: 'NUITS SONORES',
+    titreGoogle: 'Nuits Sonores — Affichage numérique 3D et motion',
     fond: 'images/vignettes/nuits-sonores.jpg',
     description: [
       'Pour ce projet, j’ai imaginé une campagne d’affichage numérique (DOOH) pour Nuits Sonores, le festival de musique électronique lyonnais. Le projet mélange la 3D, le graphisme et le motion, avec une idée simple, le switch. L’affiche montre d’abord un hangar vide et silencieux. Puis l’image bascule, et le même lieu se retrouve envahi par la végétation, la lumière et l’énergie de la fête.',
@@ -124,6 +136,7 @@ const FICHES = {
 
   lec: {
     titre: 'LEC SUMMER ROADTRIP 2026',
+    titreGoogle: 'LEC Summer Roadtrip 2026 — Animation du key visual',
     fond: 'images/vignettes/lec.jpg',
     description: [
       'Pour le LEC Summer Roadtrip 2026, organisé par Karmine Corp à l’Adidas Arena, j’ai animé le visuel principal de l’événement, réalisé par Dhav Oza. Il fallait donner vie à cette ambiance bleue et brumeuse, presque épique, tout en respectant le travail d’origine.',

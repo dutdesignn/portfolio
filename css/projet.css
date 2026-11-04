@@ -1,0 +1,113 @@
+/* =========================================================
+   PAGE D'UN PROJET (projets/<projet>/, créée par outils/generer_site.py)
+   Même univers que la fenêtre projet : texte à droite, visuels à gauche
+   dans des cadres clairs, 24 px entre les visuels et autour.
+   ========================================================= */
+.page-projet { min-height: 100vh; }
+
+.projet__entete {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 16px var(--marge);
+}
+.projet__retour {
+  justify-self: start;
+  font-size: 22px;
+  color: var(--gris-logo);
+  transition: color 0.2s;
+}
+.projet__retour:hover,
+.projet__retour:focus-visible { color: var(--rose); }
+
+.projet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  align-items: start;
+  gap: 40px;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: clamp(24px, 3vw, 48px) var(--marge);
+}
+/* Le texte vient en premier dans la page (pour Google), mais s'affiche à droite */
+.projet__texte {
+  order: 2;
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.projet__titre { padding: 0; }
+.projet__infos {
+  font-family: var(--police-arame);
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--gris-logo);
+}
+
+.projet__visuels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* Une page du projet = un dossier images/projets/<projet>/1/, 2/, 3/…
+   Les visuels d'une rangée prennent la même hauteur et remplissent la largeur. */
+.projet__page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--gris-logo);
+  border-radius: var(--rayon);
+}
+.projet__visuel {
+  margin: 0;
+  min-width: 0;
+  flex: var(--ratio) 1 calc(var(--ratio) * 300px);
+  max-width: calc(var(--ratio) * 85vh); /* un visuel seul et vertical ne dépasse pas l'écran */
+  aspect-ratio: var(--ratio);
+  overflow: hidden;
+}
+.projet__visuel img,
+.projet__visuel video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projet__suite {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 24px;
+  padding: 24px var(--marge) 48px;
+}
+.projet__suite .bouton { width: auto; min-width: 267px; padding-inline: 24px; font-size: 26px; }
+
+.projet__pied {
+  padding: 24px var(--marge) 48px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gris-logo);
+}
+.projet__pied a { text-decoration: underline; text-underline-offset: 4px; }
+.projet__pied a:hover { color: var(--rose); }
+
+@media (max-width: 1100px) {
+  .projet { grid-template-columns: 1fr; }
+  .projet__texte { order: 0; position: static; }
+}
+
+@media (max-width: 600px) {
+  .projet__entete { grid-template-columns: 1fr auto; }
+  .projet__espace { display: none; }
+  .projet__retour { font-size: 18px; }
+  .accueil__logo img { width: 96px; height: auto; }
+  .projet__page { padding: 12px; gap: 12px; }
+  .projet__visuel { flex-basis: calc(var(--ratio) * 200px); }
+  .projet__suite .bouton { min-width: 0; width: 100%; font-size: 22px; }
+}

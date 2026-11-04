@@ -5,11 +5,6 @@
 
 /* Police 0Arame (années sur les cartes, sous-titre) : elle n'est pas sur Google Fonts.
    Dépose le fichier dans fonts/0arame.woff2 pour l'activer. En attendant, Jersey 25 la remplace. */
-@font-face {
-  font-family: "0Arame";
-  src: url("../fonts/0arame.woff2") format("woff2");
-  font-display: swap;
-}
 
 :root {
   --noir: #161616;
@@ -65,12 +60,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .lettrine { font-family: var(--police-lettrine); }
 
-/* Fond texturé commun aux sections (images/fond.jpg ou images/fond.png : seul le fichier présent s'affiche).
+/* Fond texturé commun aux sections (images/fond.jpg).
    "fixed" : la texture reste en place pendant le défilement, donc elle se prolonge
    d'une section à l'autre sans raccord visible (sur iPhone, elle défile simplement avec la page). */
 .fond {
   background:
-    url("../images/fond.png") center / cover fixed,
     url("../images/fond.jpg") center / cover fixed,
     var(--noir);
 }
@@ -227,9 +221,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
      il est transparent en haut et en bas, donc il se fond dans les sections voisines. */
   background:
     linear-gradient(180deg, rgba(114, 14, 80, 0) 0%, rgba(233, 71, 137, 0.45) 29.327%, rgba(170, 13, 77, 0.45) 65.865%, rgba(129, 54, 54, 0) 100%),
-    url("../images/fond-apropos.png") center / cover,
-    url("../images/fond-apropos.jpg") center / cover,
-    url("../images/fond.png") center / cover fixed,
     url("../images/fond.jpg") center / cover fixed,
     var(--noir);
 }
@@ -368,6 +359,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .carte {
   position: relative;
   display: block;
+  font: inherit;
   width: 357px;
   height: 464px;
   border: 2px solid var(--blanc);

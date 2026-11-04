@@ -4,12 +4,25 @@
    Chaque visuel est dans un conteneur .emplacement. Le format n'a pas d'importance :
    pour "lfl.jpg", le site essaie lfl.jpg, .png, .jpeg, .webp, puis les vidéos lfl.mp4, .webm, .mov.
    Le premier fichier trouvé s'affiche. Si aucun n'existe, le conteneur reçoit la classe "vide"
-   et affiche le nom attendu à la place. */
+   et affiche le nom attendu à la place.
+   Sur le site en ligne, la liste des fichiers existants (FICHIERS) est ajoutée à la page
+   par « Préparer la mise en ligne » : le site va alors droit au bon fichier, sans essais ratés. */
 const EXT_IMAGES = ['.jpg', '.png', '.jpeg', '.webp'];
 const EXT_VIDEOS = ['.mp4', '.webm', '.mov'];
 
 function sansExtension(chemin) {
   return chemin.replace(/\.(jpe?g|png|webp|mp4|webm|mov)$/i, '');
+}
+
+const estVideo = (chemin) => /\.(mp4|webm|mov)$/i.test(chemin);
+
+// Vrai nom d'un visuel d'après la liste des fichiers en ligne (images d'abord, puis vidéos).
+// null = le fichier n'existe pas ; undefined = pas de liste (aperçu sur l'ordinateur) : le site cherche lui-même.
+function fichierReel(chemin) {
+  if (typeof FICHIERS === 'undefined') return undefined;
+  const base = sansExtension(chemin);
+  const essais = [chemin, ...EXT_IMAGES.map((ext) => base + ext), ...EXT_VIDEOS.map((ext) => base + ext)];
+  return essais.find((c) => FICHIERS.has(c)) || null;
 }
 
 // Variantes d'image d'un chemin, la version écrite dans projets.js en premier
@@ -90,11 +103,39 @@ function essayerVideos(conteneur, img, essais, controles) {
   video.src = src;
 }
 
-function surveillerImage(conteneur, { controles = false } = {}) {
+// Image d'aperçu d'une vidéo, seulement si elle existe (sur le site en ligne)
+function apercuExistant(src) {
+  const apercu = apercuDe(src);
+  return typeof FICHIERS === 'undefined' || FICHIERS.has(apercu) ? apercu : '';
+}
+
+// "chemin" : le visuel à afficher (par défaut, le src de l'image déjà dans la page)
+function surveillerImage(conteneur, { controles = false, chemin } = {}) {
   const img = conteneur.querySelector('img');
-  const original = img.getAttribute('src');
-  const essais = variantes(original);
+  const original = chemin || img.getAttribute('src');
   conteneur.dataset.fichier = `${sansExtension(original)} (.jpg, .png ou .mp4)`;
+
+  // Site en ligne : on connaît le bon fichier, on l'affiche directement
+  const reel = fichierReel(original);
+  if (reel !== undefined) {
+    if (!reel) {
+      conteneur.classList.add('vide');
+    } else if (estVideo(reel)) {
+      const video = creerVideo(controles);
+      video.poster = apercuExistant(reel);
+      video.src = reel;
+      if (img.alt) video.setAttribute('aria-label', img.alt);
+      img.replaceWith(video);
+      observateurVideos.observe(video); // elle démarrera quand elle sera visible
+    } else if (img.getAttribute('src') !== reel) {
+      img.src = reel;
+    }
+    return;
+  }
+
+  // Aperçu sur l'ordinateur : on essaie les formats un par un
+  if (!img.getAttribute('src')) img.src = original;
+  const essais = variantes(original);
   essais.shift(); // le premier est déjà en cours de chargement
 
   const essaiSuivant = () => {
@@ -116,11 +157,10 @@ function creerEmplacement(src, alt = '', options = {}) {
   const conteneur = document.createElement('div');
   conteneur.className = 'emplacement';
   const img = document.createElement('img');
-  img.src = src;
   img.alt = alt;
   img.loading = 'lazy';
   conteneur.append(img);
-  surveillerImage(conteneur, options);
+  surveillerImage(conteneur, { ...options, chemin: src });
   return conteneur;
 }
 
@@ -135,11 +175,10 @@ document.querySelectorAll('.galerie__grille').forEach((grille) => {
     const el = gabarit.content.firstElementChild.cloneNode(true);
     const media = el.querySelector('.carte__media');
     const img = media.querySelector('img');
-    img.src = carte.vignette;
     img.loading = 'lazy';
     // Texte de l'image, lu par Google Images et les lecteurs d'écran
     img.alt = `${carte.titre} — ${CATEGORIES[grille.dataset.categorie] || 'projet'} par Antonin Dutartre`;
-    surveillerImage(media);
+    surveillerImage(media, { chemin: carte.vignette });
 
     el.querySelector('.carte__annee').textContent = carte.annee;
     el.querySelector('.carte__titre').textContent = carte.titre;
@@ -147,10 +186,16 @@ document.querySelectorAll('.galerie__grille').forEach((grille) => {
     if (carte.titre.length >= 20) el.classList.add('carte--titre-long');
 
     if (carte.fiche && FICHES[carte.fiche]) {
-      el.addEventListener('click', () => ouvrirFiche(carte.fiche));
+      // Vrai lien vers la page du projet (lue par Google) ; un clic ouvre la fenêtre projet.
+      // Cmd/Ctrl + clic ou clic molette : la page du projet s'ouvre dans un nouvel onglet.
+      el.href = `projets/${carte.fiche}/`;
+      el.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        ouvrirFiche(carte.fiche);
+      });
     } else {
       // Pas de fiche détaillée : la carte n'est pas cliquable
-      el.disabled = true;
       el.classList.add('carte--statique');
     }
     grille.append(el);
@@ -166,6 +211,7 @@ document.querySelectorAll('.galerie__grille').forEach((grille) => {
     const fiche = carte.fiche && FICHES[carte.fiche];
     projets.push({
       '@type': 'CreativeWork',
+      ...(fiche ? { url: `https://dut-designn.com/projets/${carte.fiche}/` } : {}),
       name: carte.titre,
       genre: CATEGORIES[categorie],
       description: carte.resume,
@@ -242,6 +288,11 @@ function chargerVideo(src) {
 
 // Essaie tous les formats d'un visuel en même temps, garde le premier trouvé (images d'abord)
 async function trouverVisuel(base) {
+  const reel = fichierReel(`${base}.jpg`);
+  if (reel !== undefined) { // site en ligne : on sait déjà quel fichier existe
+    if (!reel) return null;
+    return estVideo(reel) ? chargerVideo(reel) : chargerImage(reel);
+  }
   const essais = [...EXT_IMAGES.map((ext) => chargerImage(base + ext)), ...EXT_VIDEOS.map((ext) => chargerVideo(base + ext))];
   const resultats = await Promise.all(essais);
   return resultats.find(Boolean) || null;
@@ -337,7 +388,7 @@ function creerPage(visuels, titre) {
     cadre.className = 'fiche__visuel';
     if (visuel.type === 'video') {
       const video = creerVideo(true);
-      video.poster = apercuDe(visuel.src);
+      video.poster = apercuExistant(visuel.src);
       video.src = visuel.src;
       cadre.append(video);
       observateurVideos.observe(video);
@@ -383,8 +434,10 @@ async function ouvrirFiche(id) {
   const jeton = ++ouverture;
   document.getElementById('fiche-nom').textContent = projet.titre;
   // Plusieurs formats en couches : seul le fichier qui existe s'affiche
-  document.getElementById('fiche-fond').style.backgroundImage =
-    variantes(projet.fond).map((c) => `url("${c}")`).join(', ');
+  const fond = fichierReel(projet.fond);
+  document.getElementById('fiche-fond').style.backgroundImage = fond === undefined
+    ? variantes(projet.fond).map((c) => `url("${c}")`).join(', ')
+    : (fond && !estVideo(fond) ? `url("${fond}")` : 'none');
 
   const description = document.getElementById('fiche-description');
   description.replaceChildren(...projet.description.map((texte) => {
