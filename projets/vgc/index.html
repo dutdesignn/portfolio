@@ -169,7 +169,7 @@
     });
     document.addEventListener('visibilitychange', relancer);
     addEventListener('pageshow', relancer);
-    ['pointerdown', 'keydown', 'touchstart'].forEach((t) => addEventListener(t, relancer, { capture: true, passive: true, once: true }));
+    ['pointermove', 'pointerdown', 'keydown', 'touchstart'].forEach((t) => addEventListener(t, relancer, { capture: true, passive: true, once: true }));
   </script>
 </body>
 </html>

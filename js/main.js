@@ -63,7 +63,7 @@ function relancerVideos() {
   document.querySelectorAll('video').forEach(actualiserVideo);
 }
 
-const GESTES = ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'];
+const GESTES = ['pointermove', 'pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'];
 let gesteAttendu = false;
 function attendreGeste() {
   if (gesteAttendu) return;
@@ -101,6 +101,7 @@ function creerVideo(controles) {
     // Les autres pauses viennent du navigateur (économie d'énergie, onglet caché…) :
     // la vidéo doit pouvoir repartir.
     if (!video.pauseAuto && video.controls && !document.hidden) video.pauseVisiteur = true;
+    else if (!video.pauseAuto) attendreGeste(); // pause du navigateur : on relance au prochain mouvement
     video.pauseAuto = false;
   });
   video.addEventListener('play', () => { video.pauseVisiteur = false; });
