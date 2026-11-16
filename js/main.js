@@ -51,17 +51,35 @@ function actualiserVideo(video) {
   const ficheOuverte = document.getElementById('fiche').open;
   const cachee = ficheOuverte && !video.closest('#fiche');
   if (video.visible && !cachee && !document.hidden && !video.pauseVisiteur) {
-    if (video.paused) video.play().catch(() => {});
+    // Lecture refusée par le navigateur (ex. Safari au chargement) : on réessaie au premier geste du visiteur
+    if (video.paused) video.play().catch(() => attendreGeste());
   } else if (!video.paused) {
     video.pauseAuto = true; // pause décidée par le site, pas par le visiteur
     video.pause();
   }
 }
 
-// Onglet en arrière-plan : tout s'arrête ; retour sur l'onglet : les vidéos visibles repartent
-document.addEventListener('visibilitychange', () => {
+function relancerVideos() {
   document.querySelectorAll('video').forEach(actualiserVideo);
-});
+}
+
+const GESTES = ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'];
+let gesteAttendu = false;
+function attendreGeste() {
+  if (gesteAttendu) return;
+  gesteAttendu = true;
+  const auGeste = () => {
+    gesteAttendu = false;
+    GESTES.forEach((type) => removeEventListener(type, auGeste, true));
+    relancerVideos();
+  };
+  GESTES.forEach((type) => addEventListener(type, auGeste, { capture: true, passive: true }));
+}
+
+// Onglet en arrière-plan : tout s'arrête ; retour sur l'onglet : les vidéos visibles repartent.
+// "pageshow" : retour sur la page avec le bouton Précédent (Safari la garde en mémoire, vidéos en pause).
+document.addEventListener('visibilitychange', relancerVideos);
+addEventListener('pageshow', relancerVideos);
 
 // Image d'aperçu d'une vidéo (ex. 1.mp4 -> 1.apercu.jpg), créée par outils/Optimiser les images.command.
 // Elle s'affiche pendant que la vidéo charge.
@@ -73,12 +91,16 @@ function apercuDe(src) {
 function creerVideo(controles) {
   const video = document.createElement('video');
   video.muted = true;
+  video.defaultMuted = true; // ajoute aussi l'attribut "muted", que Safari vérifie
   video.loop = true;
   video.playsInline = true;
   video.preload = 'metadata';
   video.controls = controles; // dans la fiche : barre de lecture pour mettre le son
   video.addEventListener('pause', () => {
-    if (!video.pauseAuto) video.pauseVisiteur = true;
+    // Le visiteur ne peut mettre en pause que s'il a la barre de lecture.
+    // Les autres pauses viennent du navigateur (économie d'énergie, onglet caché…) :
+    // la vidéo doit pouvoir repartir.
+    if (!video.pauseAuto && video.controls && !document.hidden) video.pauseVisiteur = true;
     video.pauseAuto = false;
   });
   video.addEventListener('play', () => { video.pauseVisiteur = false; });

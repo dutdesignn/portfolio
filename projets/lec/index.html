@@ -161,15 +161,25 @@
 
   <script>
     // Les vidéos ne jouent que lorsqu'elles sont visibles (au moins à moitié), comme sur l'accueil
-    const observateur = new IntersectionObserver((entrees) => entrees.forEach(({ target: v, isIntersecting, intersectionRatio }) => {
-      if (isIntersecting && intersectionRatio >= 0.5 && !v.pauseVisiteur) v.play().catch(() => {});
+    // Lecture refusée par le navigateur : on réessaie au premier geste du visiteur ou au retour sur l'onglet
+    const actualiser = (v) => {
+      if (v.visible && !document.hidden && !v.pauseVisiteur) { if (v.paused) v.play().catch(() => {}); }
       else if (!v.paused) { v.pauseAuto = true; v.pause(); }
+    };
+    const relancer = () => document.querySelectorAll('video').forEach(actualiser);
+    const observateur = new IntersectionObserver((entrees) => entrees.forEach(({ target: v, isIntersecting, intersectionRatio }) => {
+      v.visible = isIntersecting && intersectionRatio >= 0.5;
+      actualiser(v);
     }), { threshold: [0, 0.5] });
     document.querySelectorAll('video').forEach((v) => {
-      v.addEventListener('pause', () => { if (!v.pauseAuto) v.pauseVisiteur = true; v.pauseAuto = false; });
+      // Seules les pauses faites avec la barre de lecture comptent (pas celles du navigateur)
+      v.addEventListener('pause', () => { if (!v.pauseAuto && !document.hidden) v.pauseVisiteur = true; v.pauseAuto = false; });
       v.addEventListener('play', () => { v.pauseVisiteur = false; });
       observateur.observe(v);
     });
+    document.addEventListener('visibilitychange', relancer);
+    addEventListener('pageshow', relancer);
+    ['pointerdown', 'keydown', 'touchstart'].forEach((t) => addEventListener(t, relancer, { capture: true, passive: true, once: true }));
   </script>
 </body>
 </html>
