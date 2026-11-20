@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dut-designn.com/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/accueil/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/accueil/2.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/accueil/3.apercu.jpg</image:loc></image:image>
@@ -21,12 +21,13 @@
     <image:image><image:loc>https://dut-designn.com/images/vignettes/nuits-sonores.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/retro-gaming-motion.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/retro-gaming.jpg</image:loc></image:image>
+    <image:image><image:loc>https://dut-designn.com/images/vignettes/uber.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/vgc-3d.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/vgc.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://dut-designn.com/projets/vgc/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/vgc.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/vgc/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/vgc/1/2.jpg</image:loc></image:image>
@@ -38,7 +39,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/lfl/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/lfl.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/lfl/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/lfl/1/2.jpg</image:loc></image:image>
@@ -51,7 +52,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/blue-rising/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/blue-rising.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/blue-rising/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/blue-rising/2/1.jpg</image:loc></image:image>
@@ -59,7 +60,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/blue-tour/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/blue-tour.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/blue-tour/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/blue-tour/1/2.jpg</image:loc></image:image>
@@ -70,7 +71,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/le-petit-bain/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/le-petit-bain.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/le-petit-bain/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/le-petit-bain/1/2.jpg</image:loc></image:image>
@@ -79,7 +80,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/retro-gaming/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/retro-gaming.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/retro-gaming/1/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/retro-gaming/2/1.jpg</image:loc></image:image>
@@ -90,7 +91,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/karmine-corp/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/karmine-corp.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/karmine-corp/1/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/karmine-corp/2/1.apercu.jpg</image:loc></image:image>
@@ -100,7 +101,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/arte/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/arte.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/arte/1/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/arte/2/1.apercu.jpg</image:loc></image:image>
@@ -108,7 +109,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/carnaval/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/carnaval.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/carnaval/1/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/carnaval/1/2.apercu.jpg</image:loc></image:image>
@@ -119,7 +120,7 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/nuits-sonores/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/nuits-sonores.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/nuits-sonores/2/1.png</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/nuits-sonores/1/1.apercu.jpg</image:loc></image:image>
@@ -128,10 +129,16 @@
   </url>
   <url>
     <loc>https://dut-designn.com/projets/lec/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <image:image><image:loc>https://dut-designn.com/images/vignettes/lec.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/lec/1/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/lec/2/1.apercu.jpg</image:loc></image:image>
     <image:image><image:loc>https://dut-designn.com/images/projets/lec/3/1.apercu.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://dut-designn.com/projets/uber/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <image:image><image:loc>https://dut-designn.com/images/vignettes/uber.jpg</image:loc></image:image>
+    <image:image><image:loc>https://dut-designn.com/images/projets/uber/1/1.apercu.jpg</image:loc></image:image>
   </url>
 </urlset>

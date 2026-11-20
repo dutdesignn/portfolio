@@ -144,6 +144,16 @@ const FICHES = {
     ],
   },
 
+  uber: {
+    titre: 'UBER',
+    titreGoogle: 'Uber — Motion design fictif pour les réseaux sociaux',
+    fond: 'images/vignettes/uber.jpg',
+    description: [
+      'Pour ce projet, l’objectif était de créer un motion design pensé pour les réseaux sociaux, qui transmet des émotions sans parole ni visage humain.',
+      'Le motion suit une histoire, celle de l’angoisse de chercher un taxi ou un moyen de se déplacer. Les premiers plans installent cette tension grâce à un travail sur le sound design et sur le traitement de l’image. Puis tout redevient calme quand Uber se lance, avec une animation qui montre la simplicité de la réservation.',
+    ],
+  },
+
 };
 
 const CARTES = {
@@ -175,6 +185,8 @@ const CARTES = {
       resume: 'Animation et déclinaison d’un Master visuel pour le live de KAMETO et la diffusion durant le LEC SUMMER ROADTRIP 2026 a L’ADIDAS ARENA' },
     { fiche: 'retro-gaming', titre: 'RETRO GAMING FESTIVAL', annee: '2026', vignette: 'images/vignettes/retro-gaming-motion.jpg',
       resume: 'Réalisation fictive de la communication d’un festival de rétro gaming et déclinaison animé pour les réseaux sociaux' },
+    { fiche: 'uber', titre: 'UBER', annee: '2026', vignette: 'images/vignettes/uber.jpg',
+      resume: 'Un motion design fictif pour Uber, sans parole ni visage, qui joue sur l’émotion.' },
   ],
 
   'creation-3d': [
